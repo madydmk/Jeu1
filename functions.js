@@ -44,7 +44,7 @@ function init() {
     perso = $("#cercle")
     var left = perso.offset().left;
     perso.offset({ top: limit-200, left: left });
-    imgs = []
+    imgs = [creerImg(), creerImg(), creerImg(), creerImg(), creerImg(), creerImg(), creerImg(), creerImg(), creerImg(), creerImg(), creerImg(), creerImg(), creerImg(), creerImg(), creerImg()]
     idImgs = 0
     round()
     collisions = []
@@ -77,7 +77,10 @@ function start(ele) {
     }
 }
 function lancer() {
-    fall()
+    setInterval(function () {
+        fall()
+    }, 100)
+
 }
 //function jump() {
 //    if ($("#cercle").classList != "jump") {
@@ -97,13 +100,11 @@ function round() {
 }
 
 function fall() {
-    setInterval(function (){
         if (!arret) {
-            console.log(creerImg())
             var id = Math.floor(Math.random() * imgs.length)
             var img = imgs[id]
-            img.style.display = "inline"
-            if(document.getElementById(img.id)=="undefined") document.getElementById('body1').appendChild(img);
+            img.style.display = ""
+            document.getElementById('body1').appendChild(img);
 
             if (img.offsetTop <= limit) {
                 $(img).offset({ top: img.offsetTop + 5, left: img.offsetLeft })
@@ -116,7 +117,6 @@ function fall() {
             creerImg()
         //    console.log(img.id)
         }
-    }, 10)
 
 
 }
@@ -130,12 +130,13 @@ function creerImg() {
     img1.src = imageArray[Math.floor(Math.random() * imageArray.length)];
     img1.className = "imgs"
     img1.id = idImgs
+    img1.style.width = "30px"
     idImgs+=1
     //$("#cercle").attr("src", img)
     //$(img.id).offset({ top: 0, left: Math.floor(Math.random() * $(img.id).offsetLeft) });
     $(img1).offset({ top: img1.offsetTop, left: Math.floor(Math.random() * 1500) })
     img1.style.display = "none"
-    imgs.push(img1);
+    //imgs.push(img1);
     return img1;
 }
 function points(img) {
